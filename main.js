@@ -15,7 +15,7 @@ const IS_FOUND = 'IS_FOUND'; // APIから画像データを取得できた
  * この定数は「検索テキストに該当する画像データがない状態」を表す
  * 定数名は、例えば IS_NOT_FOUND などが分かりやすい
  */
-
+const IS_NOT_FOUND = 'IS_NOT_FOUND';
 
 /**
  * --------------------
@@ -117,7 +117,9 @@ new Vue({
      * TODO: 算出プロパティを定義する
      * この算出プロパティは、現在の状態が「検索テキストに該当する画像データがない状態」と一致するときにtrueを返す
      */
-
+    isNotFound() {
+      return this.currentState === IS_NOT_FOUND;
+    }
   },
 
   methods: {
@@ -136,7 +138,9 @@ new Vue({
      * TODO: メソッドを定義する
      * このメソッドは、現在の状態を「検索テキストに該当する画像データがない状態」に変更する
      */
-
+    toNotFound() {
+      this.currentState = IS_NOT_FOUND;
+    },
 
     fetchImagesFromFlickr(event) {
       const searchText = event.target.elements.search.value;
@@ -163,7 +167,7 @@ new Vue({
         // 検索テキストに該当する画像データがない場合
         if (fetchedPhotos.length === 0) {
           // TODO: メソッドを呼び出して、現在の状態を「検索テキストに該当する画像データがない状態」に変更する
-
+          this.toNotFound();
           return;
         }
 
